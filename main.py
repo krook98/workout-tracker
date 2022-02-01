@@ -1,5 +1,6 @@
 import os
 import requests
+from datetime import datetime
 
 
 API_ID = os.environ.get('API_ID')
@@ -27,3 +28,28 @@ exercise_params = {
 exercise_response = requests.post(url=EXERCISE_ENDPOINT, json=exercise_params, headers=headers)
 exercise_response.raise_for_status()
 result = exercise_response.json()
+print(result)
+
+today = datetime.now()
+hour = f"{today.hour}:{today.minute}:{today.second}"
+
+for exercise in result['exercises']:
+    bearer_token = {
+        'Authorization': os.environ.get('TOKEN')
+    }
+
+    sheety_params = {
+        'workout': {
+            'date': today.strftime('%x'),
+            'time': hour,
+            'exercise': result['exercises'][0]['name'].title(),
+            'duration': result['exercises'][0]['duration_min'],
+            'calories': result['exercises'][0]['nf_calories']
+        }
+    }
+
+    sheety_response = requests.post(
+        url=os.environ.get('SHEETY_ENDPOINT'),
+        json=sheety_params,
+        headers=bearer_token
+    )
