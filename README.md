@@ -15,7 +15,7 @@ To run this project you might need your own API keys. Nutritionix and Google acc
 requests, datetime and os Python libraries are required
 
 ### Launch
-Firstly, you need to add your own API keys, phone number and notification number from Twilio. You set environment variables in terminal with:  <br/><br/>
+Firstly, you need to add your own API keys. You can set environment variables in terminal with:  <br/><br/>
 `export 'YOUR_ENV_VAR_NAME'=value`  <br/><br/>
 Then you can access it in code with:  <br/><br/>
 `os.environ.get('YOU_ENV_VAR_NAME')`  <br/><br/>
